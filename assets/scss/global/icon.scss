@@ -1,0 +1,10 @@
+.icon {
+  // Allows sizing by changing the icon's font-size
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  // Default path fill = value of the color property
+  fill: currentColor;
+  // Avoids click events being intercepted by SVG element in IE11
+  pointer-events: none;
+}

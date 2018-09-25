@@ -1,0 +1,61 @@
+// ===========================
+// Global Settings (variables)
+// ===========================
+// Organize by category, e.g. dimensions,
+// breakpoints, z-indexes, colors, etc.
+
+// ----------------
+// Asset management
+// ----------------
+// Config for when using the asset("some/path") function.
+
+$asset-public-root: "/public/";
+$asset-query-string: "";
+
+// -------------
+// Media queries
+// -------------
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 520px,
+  md: 760px,
+  lg: 1100px,
+  //xl: 1400px
+);
+
+// -------------------
+// Brand/design colors
+// -------------------
+// Tip: Only create variables for brand colors,
+// not for every single possible shade of grey.
+
+$primary: #8ABF56;
+$grey-blue: #90979B;
+$dark-grey : #2E323F;
+$dark-blue: #2E323F;
+$orange: #CC6600;
+$green: #99CC00;
+$pink: #CC3366;
+$dark-pink: #993399;
+$purple: #6666CC;
+
+// -----
+// Fonts
+// -----
+$font-family-base: 'Roboto', sans-serif;
+
+
+// ----------
+// Dimensions
+// ----------
+// FIXME: should be 70px but header design is too big on mobile right now
+$header-height-small: 160px;
+$header-height-large: 100px;
+
+
+// ---------
+// Z-indexes
+// ---------
+// Note: Bootstrap has zindex variables between 1000 and 1100 for dropdowns, modals, etc.
+$zindex-header: 100;

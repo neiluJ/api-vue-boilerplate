@@ -1,0 +1,11 @@
+{% extends "pagelayout.html.twig" %}
+
+{% block content %}
+    <h1>{{ 'app.title'|trans }}</h1>
+
+    <div id="app"></div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
+{% endblock %}
