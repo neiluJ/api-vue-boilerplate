@@ -2,10 +2,33 @@ ARG PHP_VERSION
 
 FROM php:${PHP_VERSION}-fpm-stretch
 
-RUN apt-get -y update \
-    && apt-get -y install curl less vim libicu-dev zlib1g-dev libc-client-dev
+RUN set -eux; \
+    apt-get -y update; \
+    apt-get -y install curl less vim libicu-dev zlib1g-dev libc-client-dev \
+    nodejs wget nano libzip-dev pax-utils
 
-RUN docker-php-ext-install -j$(nproc) intl mbstring pdo pdo_mysql zip iconv
+
+ARG APCU_VERSION=5.1.12
+RUN set -eux; \
+    docker-php-ext-configure zip --with-libzip; \
+    docker-php-ext-install -j$(nproc) intl mbstring pdo pdo_mysql zip; \
+    pecl install apcu-${APCU_VERSION}; \
+    pecl clear-cache; \
+    docker-php-ext-enable \
+        apcu \
+        opcache \
+    ; \
+    \
+    runDeps="$( \
+        scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
+            | tr ',' '\n' \
+            | sort -u \
+            | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+    )";
+#    apk add --no-cache --virtual .api-phpexts-rundeps $runDeps; \
+#    \
+#    apk del .build-deps
+
 
 # to enable xdebug, uncomment this
 # RUN (pecl install xdebug || pecl install xdebug-2.5.5) && docker-php-ext-enable xdebug
