@@ -1,19 +1,8 @@
-#!/bin/sh
-set -e
+#!/bin/bash
 
-# first arg is `-f` or `--some-option`
-if [ "${1#-}" != "$1" ]; then
-	set -- php-fpm "$@"
-fi
+# groupadd -g $SITE_GID site
+useradd --uid $SITE_UID --gid $SITE_GID --groups $SITE_GID -s /bin/bash site
 
-if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
-	mkdir -p var/cache var/log
-	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
-	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
+# do composer stuff
 
-	if [ "$APP_ENV" != 'prod' ]; then
-		composer install --prefer-dist --no-progress --no-suggest --no-interaction
-	fi
-fi
-
-exec docker-php-entrypoint "$@"
+php-fpm -F

@@ -2,9 +2,10 @@ version: '3.4'
 
 services:
   php:
+    image: kaliop/php-fpm:stretch
+    hostname: php
     build:
       context: ./docker/php
-      target: ${PROJECT_NAME}_php
       args:
         PHP_VERSION: ${PHP_VERSION}
 #    depends_on:
@@ -15,44 +16,34 @@ services:
     volumes:
       - .:/var/www/html:rw,cached
       # If you develop on Linux, uncomment the following line to use a bind-mounted host directory instead
-      - ./var:/var/www/html/var:rw
-    environment:
-      PHP_VERSION: ${PHP_VERSION}
+      # - ./var:/var/www/html/var:rw
+      - "./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf"
+      - "./docker/php/php.ini:/usr/local/etc/php/conf.d/docker-php-ext-stack-custom.ini"
 
-#  api:
-#    image: ${CONTAINER_REGISTRY_BASE}/nginx
-#    build:
-#      context: ./api
-#      target: api_platform_nginx
-#      cache_from:
-#        - ${CONTAINER_REGISTRY_BASE}/php
-#        - ${CONTAINER_REGISTRY_BASE}/nginx
-#        - ${CONTAINER_REGISTRY_BASE}/varnish
-#    depends_on:
-#      - php
-#    # Comment out this volume in production
-#    volumes:
-#      - ./api/public:/srv/api/public:ro
-#    ports:
-#      - "8080:80"
-#
-#  cache-proxy:
-#    image: ${CONTAINER_REGISTRY_BASE}/varnish
-#    build:
-#      context: ./api
-#      target: api_platform_varnish
-#      cache_from:
-#        - ${CONTAINER_REGISTRY_BASE}/php
-#        - ${CONTAINER_REGISTRY_BASE}/nginx
-#        - ${CONTAINER_REGISTRY_BASE}/varnish
-#    depends_on:
-#      - api
-#    volumes:
-#      - ./api/docker/varnish/conf:/usr/local/etc/varnish:ro
-#    tmpfs:
-#      - /usr/local/var/varnish:exec
-#    ports:
-#      - "8081:80"
+  nginx:
+    image: nginx:${NGINX_VERSION}
+    hostname: nginx
+    depends_on:
+      - php
+    volumes:
+        - "./docker/nginx/conf.d:/etc/nginx/conf.d"
+        - "./public:/var/www/html/public:ro"
+    env_file:
+      - .env
+
+  varnish:
+    image: quay.io/api-platform/varnish
+    build:
+      context: ./docker/varnish
+    depends_on:
+      - nginx
+    hostname: varnish
+    volumes:
+      - ./docker/varnish/conf:/usr/local/etc/varnish:ro
+    tmpfs:
+      - /usr/local/var/varnish:exec
+    ports:
+      - "81:80"
 #
 #  db:
 #    # In production, you may want to use a managed database service
@@ -69,17 +60,18 @@ services:
 #    ports:
 #      - "5432:5432"
 #
-#  h2-proxy:
-#    build:
-#      context: ./docker/h2-proxy
-#    depends_on:
-#      - api
-#      - cache-proxy
-#    ports:
-#      - "443:443"
-#      - "444:444"
-#      - "8443:8443"
-#      - "8444:8444"
-#
+  haproxy:
+    image: haproxy:alpine
+    hostname: haproxy
+    container_name: api_haproxy
+    depends_on:
+      - nginx
+    env_file:
+      - .env
+    ports:
+      - 80:80
+    volumes:
+      - "./docker/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
+
 #volumes:
 #  db-data: {}
