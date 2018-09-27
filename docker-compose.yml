@@ -15,10 +15,14 @@ services:
     # Comment out these volumes in production
     volumes:
       - .:/var/www/html:rw,cached
+      - "/home/jballestracci/.composer:/home/site/.composer:rw"
       # If you develop on Linux, uncomment the following line to use a bind-mounted host directory instead
       # - ./var:/var/www/html/var:rw
       - "./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf"
       - "./docker/php/php.ini:/usr/local/etc/php/conf.d/docker-php-ext-stack-custom.ini"
+    networks:
+      api_net:
+        ipv4_address: 172.110.0.2
 
   nginx:
     image: nginx:${NGINX_VERSION}
@@ -30,11 +34,12 @@ services:
         - "./public:/var/www/html/public:ro"
     env_file:
       - .env
+    networks:
+      api_net:
+        ipv4_address: 172.110.0.3
 
   varnish:
     image: quay.io/api-platform/varnish
-    build:
-      context: ./docker/varnish
     depends_on:
       - nginx
     hostname: varnish
@@ -44,6 +49,9 @@ services:
       - /usr/local/var/varnish:exec
     ports:
       - "81:80"
+    networks:
+      api_net:
+        ipv4_address: 172.110.0.5
 #
 #  db:
 #    # In production, you may want to use a managed database service
@@ -72,6 +80,17 @@ services:
       - 80:80
     volumes:
       - "./docker/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
+    networks:
+      api_net:
+        ipv4_address: 172.110.0.6
+
+networks:
+  api_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.110.0.0/24
 
 #volumes:
 #  db-data: {}

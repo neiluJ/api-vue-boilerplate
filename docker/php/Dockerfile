@@ -5,8 +5,10 @@ FROM php:${PHP_VERSION}-fpm-stretch
 RUN set -eux; \
     apt-get -y update; \
     apt-get -y install curl less vim libicu-dev zlib1g-dev libc-client-dev \
-    nodejs wget nano libzip-dev pax-utils
+    wget nano libzip-dev pax-utils sudo gnupg unzip
 
+RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+RUN apt-get install -y nodejs
 
 ARG APCU_VERSION=5.1.12
 RUN set -eux; \
@@ -29,6 +31,10 @@ RUN set -eux; \
 #    \
 #    apk del .build-deps
 
+RUN cd /usr/local/bin; \
+    wget https://getcomposer.org/composer.phar; \
+    mv composer.phar composer; \
+    chmod +x composer;
 
 # to enable xdebug, uncomment this
 # RUN (pecl install xdebug || pecl install xdebug-2.5.5) && docker-php-ext-enable xdebug
