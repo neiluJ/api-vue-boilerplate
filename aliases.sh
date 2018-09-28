@@ -7,8 +7,8 @@ function php() {
     docker exec -ti $(docker ps -aqf "name=php") su site -c"php $@";
 }
 
-function npm() {
-    docker exec -ti $(docker ps -aqf "name=php") su site -c"npm $@";
+function npme() {
+    docker exec -ti $(docker ps -aqf "name=php") su site -c"npm $@;";
 }
 
 function console() {

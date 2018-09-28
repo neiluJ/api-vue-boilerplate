@@ -15,7 +15,7 @@ services:
     # Comment out these volumes in production
     volumes:
       - .:/var/www/html:rw,cached
-      - "/home/jballestracci/.composer:/home/site/.composer:rw"
+      - "/home/jballestracci/.composer:/home/site/.composer:rw,cached"
       # If you develop on Linux, uncomment the following line to use a bind-mounted host directory instead
       # - ./var:/var/www/html/var:rw
       - "./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf"
