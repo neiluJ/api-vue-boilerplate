@@ -29,7 +29,7 @@ $ cp .env_dist .env
 $ . aliases.sh
 [api] $ stack up -d
 [api] $ composer install -o
-[api] $ npm install 
+[api] $ npm install && npm run dev
 ```
 
 Visit http://localhost and start coding! (the varnish-cached version is on http://localhost:81)
@@ -46,6 +46,17 @@ Visit http://localhost and start coding! (the varnish-cached version is on http:
 
 ## How to use/customize
 
+#### Suggested browser extensions
+
+* VueJS DevTools - [Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+* Postman - [Chrome](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop)
+
+#### PHPStorm Plugins
+
+* Symfony
+* .env files
+* VueJS
+
 #### Command Line Aliases
 
 You have to source the ```aliases.sh``` file before using these aliases (on your host computer).
@@ -61,7 +72,7 @@ You have to source the ```aliases.sh``` file before using these aliases (on your
 
 #### API Endpoint
 
-* Swagger/API doc is available at the API root: https://localhost:8443/api
+* Swagger/API doc is available at the API root: http://localhost/api
 * You can change the API root url by changing the ```prefix``` in ```config/routes/api_platform.yaml```
 
 #### translations
