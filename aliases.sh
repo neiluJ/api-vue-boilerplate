@@ -34,4 +34,8 @@ function phplog() {
     docker exec -ti $(docker ps -qf "name=php") tail -f /var/log/fpm-php.www.log
 }
 
+function cli() {
+    docker exec -ti $(docker ps -qf "name=php") su site
+}
+
 export PS1=`echo $PROMPT_PREFIX $PS1' '`

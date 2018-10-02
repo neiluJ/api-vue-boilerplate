@@ -65,6 +65,7 @@ You have to source the ```aliases.sh``` file before using these aliases (on your
 * *php*: runs php in the container (ex: ```php -i```)
 * *npm*: runs npm in the container (ex: ```npm --version```)
 * *console*: runs the symfony console in the container (ex: ```console ca:cl```)
+* *cli*: enters the PHP CLI
 * *composer*: runs composer in the container (ex: ```composer install -o```)
 * *errorlog*: tails the httpd (nginx) error log
 * *accesslog*: tails the httpd (nginx) access log
