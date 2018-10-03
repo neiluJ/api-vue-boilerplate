@@ -22,7 +22,7 @@ $ . aliases.sh
 
 Create and edit an ```.env``` file:
 ```bash
-$ cp .env_dist .env
+$ cp .env.dist .env
 ```
 
 ```bash
@@ -50,11 +50,12 @@ Visit http://localhost and start coding! (the varnish-cached version is on http:
 
 * VueJS DevTools - [Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
 * Postman - [Chrome](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop)
+* JSON Viewer - [Chrome](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh)
 
 #### PHPStorm Plugins
 
 * Symfony
-* .env files
+* .env files support
 * VueJS
 
 #### Command Line Aliases
