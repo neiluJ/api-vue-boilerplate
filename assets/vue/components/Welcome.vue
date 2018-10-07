@@ -14,6 +14,7 @@
 
 <script>
   import { INCREMENT_COUNT } from '../store/modules/sample/types'
+  import API from '../services/api';
 
   // Sample for properties order
   export default {
@@ -37,7 +38,8 @@
       }
     },
     created() {
-      console.log('CREATED')
+      console.log('CREATED');
+        API.greetings()
     },
     mounted() {
       console.log('MOUNTED')

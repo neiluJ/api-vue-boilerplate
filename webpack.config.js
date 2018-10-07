@@ -1,6 +1,7 @@
 const Encore = require('@symfony/webpack-encore');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin.js');
+const Defineplugin = require('webpack/lib/DefinePlugin');
 
 Encore
     // directory where compiled assets will be stored
@@ -25,6 +26,10 @@ Encore
     .addPlugin(new VueLoaderPlugin())
 
     .addPlugin(new SpriteLoaderPlugin())
+
+    .addPlugin(new Defineplugin({
+        "process.env.NODE_ENV": JSON.stringify(Encore.isProduction() ? "production" : "development")
+    }))
 
     // Create a SVG sprites
     .addLoader({
