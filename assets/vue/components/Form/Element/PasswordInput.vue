@@ -11,8 +11,8 @@
     export default {
         inheritAttrs: false,
         components: {
-            'form-element': FormElement,
-            'input-element': InputElement
+            FormElement,
+            InputElement
         }
     }
 </script>

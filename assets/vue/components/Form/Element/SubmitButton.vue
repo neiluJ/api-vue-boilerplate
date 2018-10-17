@@ -1,5 +1,5 @@
 <template>
-    <button-element _type="submit" v-bind="$attrs">
+    <button-element _type="submit" v-bind="$attrs" class="btn-submit">
         <slot></slot>
     </button-element>
 </template>
@@ -10,7 +10,7 @@
     export default {
         inheritAttrs: false,
         components: {
-            'button-element': ButtonElement
+            ButtonElement
         }
     }
 </script>

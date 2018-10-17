@@ -6,25 +6,27 @@ import router from './router'
 import store from './store'
 import VueI18n from 'vue-i18n'
 import moment from 'moment'
-import messagesFR from '../translations/messages.fr.json'
-
-Vue.config.productionTip = false;
+import messagesEN from '../translations/messages.en.json'
 
 Vue.use(VueI18n);
 
-// Configuration de l'internationalisation
-let locale = require('browser-locale')();
+Vue.config.productionTip = false;
+
+// use the locale defined in <html lang="xy"> (as it depends on Symfony
+let locale = document.documentElement.lang;
 if (!locale) {
-  locale = 'fr'; // define with symfony ?!
+  locale = 'en';
 }
 
 const i18n = new VueI18n({
   locale: locale,
-  fallbackLocale: 'fr',
+  fallbackLocale: 'en',
   messages: {
-    fr: messagesFR
+    en: messagesEN
   }
 });
+
+
 moment.locale(locale);
 
 /* eslint-disable no-new */

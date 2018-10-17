@@ -1,0 +1,26 @@
+{
+  "app": {
+    "title": "My API App",
+    "welcome_msg": "Hello from Vue!"
+  },
+  "forms": {
+    "login": {
+      "username": {
+        "label": "Username",
+        "placeholder": "username or email",
+        "hint": ""
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "enter your password",
+        "hint": "min 6 char. and 1 uppercase"
+      },
+      "submit": {
+        "label": "Login"
+      },
+      "lost_password": {
+        "link": "Lost password ?"
+      }
+    }
+  }
+}

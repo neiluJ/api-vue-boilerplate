@@ -1,18 +1,27 @@
 <template>
-    <form action="/login" method="post">
+    <form :action="$router.resolve({to: '/'}).href" method="post">
         <text-input id="username"
                     name="username"
-                    label="Username"
-                    placeholder="enter your username"
-                    hint="enter username or email address"
+                    :label="$t('forms.login.username.label')"
+                    :placeholder="$t('forms.login.username.placeholder')"
+                    :hint="$t('forms.login.username.hint')"
+                    required
         />
         <password-input id="passwd"
                     name="password"
-                    label="Password"
-                    placeholder="enter your password"
-                    hint="password should be at least 6 char. long"
+                    :label="$t('forms.login.password.label')"
+                    :placeholder="$t('forms.login.password.placeholder')"
+                    :hint="$t('forms.login.password.hint')"
+                    required
         />
-        <submit-button>Login</submit-button>
+
+        <small>
+            <router-link to="/">
+                {{ $t('forms.login.lost_password.link') }}
+            </router-link>
+        </small>
+        &mdash;
+        <submit-button>{{ $t('forms.login.submit.label') }}</submit-button>
     </form>
 </template>
 
@@ -28,13 +37,6 @@
             SubmitButton,
             TextInput,
             PasswordInput
-        },
-        data: function() {
-            return {}
-        },
-        created() {
-            // blah
-        },
-        methods: {}
+        }
     }
 </script>

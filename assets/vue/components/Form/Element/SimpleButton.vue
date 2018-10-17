@@ -10,7 +10,7 @@
     export default {
         inheritAttrs: false,
         components: {
-            'button-element': ButtonElement
+           ButtonElement
         }
     }
 </script>

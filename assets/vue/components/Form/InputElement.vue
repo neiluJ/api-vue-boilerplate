@@ -1,5 +1,5 @@
 <template>
-    <input class="form-control" v-bind:type="_type" v-bind:id="_id" v-bind="$attrs" />
+    <input class="form-control" v-bind:type="_type" v-bind:name="name" v-bind="$attrs" />
 </template>
 
 <script>
@@ -31,9 +31,6 @@
             id() {
                 return this._id;
             }
-        },
-        data: function() {
-            return {}
         }
     }
 </script>

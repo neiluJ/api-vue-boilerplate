@@ -33,9 +33,6 @@
             id() {
                 return this._id;
             }
-        },
-        data: function() {
-            return {}
         }
     }
 </script>

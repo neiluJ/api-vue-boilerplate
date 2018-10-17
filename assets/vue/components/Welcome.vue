@@ -19,11 +19,6 @@
   // Sample for properties order
   export default {
     name: 'Welcome',
-    components: {},
-    props: [],
-    data() {
-      return {}
-    },
     computed: {
       count() {
         return this.$store.state.sample.count
@@ -38,14 +33,7 @@
       }
     },
     created() {
-      console.log('CREATED');
         API.greetings()
-    },
-    mounted() {
-      console.log('MOUNTED')
-    },
-    watch: {
-
     }
   }
 </script>
