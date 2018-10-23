@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-form action="/greetings" method="post">
+        <v-form action="/greetings" method="post" @error="onError" @success="onSuccess">
             <text-input id="name"
                         name="name"
                         :label="$t('forms.greetings_create.title.label')"
@@ -28,6 +28,26 @@
             SubmitButton,
             TextInput,
             'v-form': VForm
+        },
+        methods: {
+            /**
+             * Error handler, triggered before showing the user error
+             *
+             * @param error Axios error object
+             */
+            onError(error) {
+                console.error('Oops! They are form errors.');
+            },
+
+            /**
+             * The Form's success handler:
+             * -> Redirect to a page or do something?
+             *
+             * @param formData FormData JS object with submitted values
+             */
+            onSuccess(formData) {
+                console.log('Form submitted with success !');
+            }
         }
     }
 </script>

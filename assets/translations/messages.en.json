@@ -27,6 +27,9 @@
       "violations": {
         "name": {
           "not_blank": "The name can't be empty"
+        },
+        "orphan": {
+          "not_true": "This form will never validate because it's a test!"
         }
       }
     },

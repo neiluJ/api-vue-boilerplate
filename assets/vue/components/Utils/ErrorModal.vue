@@ -24,11 +24,10 @@ export default {
         Modal
     },
     created() {
-        const self = this;
-        EventBus.$on('app-error', function(errorResponse) {
-            self.errorTitle = errorResponse.data.title;
-            self.errorText = errorResponse.data.detail;
-            self.showErrorModal = true;
+        EventBus.$on('app-error', (errorResponse) => {
+            this.errorTitle = errorResponse.data.title;
+            this.errorText = errorResponse.data.detail;
+            this.showErrorModal = true;
             // TODO: show trace
         });
     }

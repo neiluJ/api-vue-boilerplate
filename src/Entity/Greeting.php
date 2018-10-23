@@ -35,4 +35,13 @@ class Greeting
     {
         return $this->id;
     }
+
+    /**
+     * @return bool
+     *
+     * @Assert\IsTrue(message="forms.greetings_create.violations.orphan.not_true")
+     */
+    public function isNeverOk() {
+        return false;
+    }
 }
