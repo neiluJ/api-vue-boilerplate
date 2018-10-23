@@ -3,7 +3,7 @@
         <label :for="computedLabelTarget" v-if="hasLabel()">{{ computedLabel }}</label>
         <slot></slot>
         <small class="form-text text-muted form-hint" v-if="hasHint()">{{ computedHint }}</small>
-        <small class="invalid-feedback form-error" v-if="hasError()">{{ error }}</small>
+        <small class="invalid-feedback form-error" v-if="hasError()">{{ $t(error) }}</small>
     </div>
 </template>
 
@@ -19,10 +19,11 @@
             hint: {
                 type: String,
                 default: ""
-            },
-            error: {
-                type: String,
-                default: ""
+            }
+        },
+        data: function() {
+            return {
+                error: ""
             }
         },
         computed: {

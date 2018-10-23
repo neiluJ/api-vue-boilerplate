@@ -27,7 +27,7 @@ class Greeting
      * @var string A nice person
      *
      * @ORM\Column
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="forms.greetings_create.violations.name.not_blank")
      */
     public $name = '';
 

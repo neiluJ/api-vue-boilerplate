@@ -3,7 +3,33 @@
     "title": "My API App",
     "welcome_msg": "Hello from Vue!"
   },
+  "welcome": {
+    "greetings_list": {
+      "title": "Greetings List"
+    }
+  },
   "forms": {
+    "greetings_create": {
+      "title": {
+        "label": "Greeting title",
+        "placeholder": "enter a cool title",
+        "hint": ""
+      },
+      "submit": {
+        "label": "Create Greeting!"
+      },
+      "back_home": {
+        "link": "Back homepage"
+      },
+      "create": {
+        "link": "Create greeting"
+      },
+      "violations": {
+        "name": {
+          "not_blank": "The name can't be empty"
+        }
+      }
+    },
     "login": {
       "username": {
         "label": "Username",

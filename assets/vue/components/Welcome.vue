@@ -2,6 +2,13 @@
     <div>
        {{ $t('app.welcome_msg') }}
 
+        <h2>{{ $t('welcome.greetings_list.title') }}</h2>
+
+        <router-link :to="{name: 'create_greeting' }">
+            {{ $t('forms.greetings_create.create.link') }}
+        </router-link>
+
+        <hr />
       <div style="text-align: center;">
         <h3>Store sample</h3>
         <p>Count cannot exceed 42, because it's The Answer.</p>
@@ -32,7 +39,7 @@
         this.$store.dispatch(INCREMENT_COUNT)
       }
     },
-    created() {
+    mounted() {
         API.greetings()
     }
   }

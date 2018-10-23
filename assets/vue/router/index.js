@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Welcome from '../components/Welcome'
 import Login from '../components/Login'
+import CreateGreeting from '../components/Greetings/Create'
 
 Vue.use(Router);
 
@@ -11,12 +12,17 @@ const router = new Router({
         {
             path: '/',
             component: Welcome,
-            name: 'Welcome'
+            name: 'welcome'
         },
         {
             path: '/login',
             component: Login,
-            name: 'Login'
+            name: 'login'
+        },
+        {
+            path: '/greetings/create',
+            component: CreateGreeting,
+            name: 'create_greeting'
         }
     ]
 });
