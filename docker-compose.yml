@@ -53,22 +53,23 @@ services:
     networks:
       api_net:
         ipv4_address: 172.110.0.5
-#
-#  db:
-#    # In production, you may want to use a managed database service
-#    image: postgres:9.6-alpine
-#    environment:
-#      - POSTGRES_DB=api
-#      - POSTGRES_USER=api-platform
-#      # You should definitely change the password in production
-#      - POSTGRES_PASSWORD=!ChangeMe!
-#    volumes:
-#      - db-data:/var/lib/postgresql/data:rw
-#      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-#      # - ./docker/db/data:/var/lib/postgresql/data:rw
-#    ports:
-#      - "5432:5432"
-#
+
+  mysql:
+    image: mysql:5.7.21
+    hostname: mysql
+    networks:
+      api_net:
+        ipv4_address: 172.110.0.7
+    ports:
+      - ${MYSQL_PORT}:3306
+    volumes:
+      - db-data:/var/lib/mysql:rw
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
   haproxy:
     image: haproxy:alpine
     hostname: haproxy
@@ -93,5 +94,5 @@ networks:
       config:
         - subnet: 172.110.0.0/24
 
-#volumes:
-#  db-data: {}
+volumes:
+  db-data: {}
