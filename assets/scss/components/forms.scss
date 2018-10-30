@@ -1,0 +1,56 @@
+
+.form-group {
+  display:block;
+  margin-bottom: 15px;
+  clear: both;
+}
+
+.form-group input[type="text"], .form-group input[type="password"] {
+  padding: 5px;
+}
+
+.form-error {
+  color: red;
+  display: block;
+  margin-left: 200px;
+}
+
+.form-hint {
+  color: #aaa;
+}
+
+.form-group label {
+  width: 202px;
+  display: inline-block;
+}
+
+.form-group.form-check {
+  padding-left: 200px;
+}
+.form-group.form-check .form-error {
+  margin-left:0;
+}
+
+.form-group.form-radio-group>label {
+  float:left;
+}
+
+.form-group.form-radio-group .radio-choice {
+  display:block;
+  clear: right;
+  margin-left:200px;
+}
+.form-group.form-radio-group .radio-choice:first-child {
+  margin-left:0;
+}
+.form-group.form-radio-group .form-error {
+  display:block;
+  clear: both;
+  margin-left:200px;
+}
+
+ul.form-errors {
+  display:block;
+  margin: 10px 0 20px 0;
+  color: red;
+}
