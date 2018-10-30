@@ -32,11 +32,25 @@ class Greeting
     public $name = '';
 
     /**
+     * @Assert\EqualTo(value="blue", message="forms.greetings_create.violations.radioChoice.not_blue")
+     *
+     * @var string
+     */
+    public $radioChoice;
+
+    /**
      * @var bool
      *
-     * @Assert\IsTrue(message="forms.greetings_create.violation.testcheck.not_true")
+     * @Assert\IsTrue(message="forms.greetings_create.violations.testcheck.not_true")
      */
     protected $testcheck = false;
+
+    /**
+     * @Assert\NotEqualTo(value="ABBA", message="forms.greetings_create.violations.selectChoice.not_abba")
+     *
+     * @var string
+     */
+    public $selectChoice;
 
     public function getId(): int
     {

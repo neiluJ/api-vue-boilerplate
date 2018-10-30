@@ -24,12 +24,33 @@
       "create": {
         "link": "Create greeting"
       },
+      "testcheck": {
+        "label": "You may check this",
+        "hint": ""
+      },
+      "radioChoice": {
+        "label": "Favourite reggae color ?",
+        "hint": ""
+      },
+      "selectChoice": {
+        "label": "What is rock'n'roll ?",
+        "hint": "choose wisely"
+      },
       "violations": {
         "name": {
           "not_blank": "The name can't be empty"
         },
+        "testcheck": {
+          "not_true": "You must check this field"
+        },
         "orphan": {
           "not_true": "This form will never validate because it's a test!"
+        },
+        "radioChoice": {
+          "not_blue": "I like blue :("
+        },
+        "selectChoice": {
+          "not_abba": "Are you serious?"
         }
       }
     },

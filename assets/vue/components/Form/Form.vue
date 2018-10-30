@@ -98,13 +98,16 @@
                     }
 
                     elements.forEach((el) => {
-                       if (el.__vue__ === undefined && el.__vue__.$parent !== undefined) {
-                           orphanViolations.push(violation.message);
-                           return;
-                       }
+                        const baseElm = (el.__vue__ === undefined ? el.parentNode.__vue__ : el.__vue__);
+                        if (baseElm === undefined) {
+                            orphanViolations.push(violation.message);
+                            return;
+                        }
 
-                        el.__vue__.$parent.error = violation.message;
-                        this.violationsElements.push(el.__vue__.$parent);
+                        const errElm = (el.__vue__ === undefined ? baseElm : baseElm.$parent);
+
+                        errElm.error = violation.message;
+                        this.violationsElements.push(errElm);
                     });
                 });
 
