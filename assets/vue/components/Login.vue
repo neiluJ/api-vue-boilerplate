@@ -27,8 +27,8 @@
 
 
 <script>
-    import TextInput from './Form/Element/TextInput';
-    import PasswordInput from './Form/Element/PasswordInput';
+    import TextInput from './Form/Element/Text';
+    import PasswordInput from './Form/Element/Password';
     import SubmitButton from "./Form/Element/SubmitButton";
 
     export default {

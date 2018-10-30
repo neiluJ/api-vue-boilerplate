@@ -1,7 +1,7 @@
 <template>
     <div>
         <modal v-if="showErrorModal" @close="showErrorModal = false">
-            <h3 slot="header">{{ errorTitle }}</h3>
+            <h3 slot="header">{{ errorTitle }} ({{ statusCode }})</h3>
             <p slot="body">{{ errorText }}</p>
         </modal>
     </div>
@@ -15,6 +15,7 @@ export default {
     name: 'ErrorModal',
     data: function() {
         return {
+            statusCode: 500,
             showErrorModal: false,
             errorTitle: "Error 500",
             errorText: "Something bad happened :("
@@ -24,7 +25,8 @@ export default {
         Modal
     },
     created() {
-        EventBus.$on('app-error', (errorResponse) => {
+        EventBus.$on('app-error', (errorResponse, statusCode) => {
+            this.statusCode = statusCode;
             this.errorTitle = errorResponse.data.title;
             this.errorText = errorResponse.data.detail;
             this.showErrorModal = true;

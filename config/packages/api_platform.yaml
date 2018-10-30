@@ -19,3 +19,4 @@ api_platform:
         shared_max_age: 3600
         vary: ['Content-Type', 'Authorization']
         public: true
+    path_segment_name_generator: api_platform.path_segment_name_generator.dash

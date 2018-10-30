@@ -53,6 +53,9 @@
 
                     if (err.response.data !== undefined && err.response.data.violations !== undefined) {
                         this._dispatchViolations(err.response.data.violations);
+                    } else if (err.response.data.detail !== undefined) {
+                        this.hasViolations = true;
+                        this.orphanViolations = [err.response.data.detail];
                     }
                 });
             },

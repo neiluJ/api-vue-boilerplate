@@ -8,6 +8,12 @@
                         :hint="$t('forms.greetings_create.title.hint')"
             />
 
+            <checkbox id="testcheck"
+                      name="testcheck"
+                      :label="$t('forms.greetings_create.testcheck.label')"
+                      :hint="$t('forms.greetings_create.testcheck.hint')"
+            />
+
             <submit-button>{{ $t('forms.greetings_create.submit.label') }}</submit-button>
         </v-form>
 
@@ -19,12 +25,14 @@
 
 
 <script>
-    import TextInput from '../Form/Element/TextInput';
+    import TextInput from '../Form/Element/Text';
     import SubmitButton from "../Form/Element/SubmitButton";
     import VForm from '../Form/Form';
+    import Checkbox from "../Form/Element/Checkbox";
 
     export default {
         components: {
+            Checkbox,
             SubmitButton,
             TextInput,
             'v-form': VForm

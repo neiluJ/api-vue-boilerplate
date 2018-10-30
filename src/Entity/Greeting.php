@@ -31,6 +31,13 @@ class Greeting
      */
     public $name = '';
 
+    /**
+     * @var bool
+     *
+     * @Assert\IsTrue(message="forms.greetings_create.violation.testcheck.not_true")
+     */
+    protected $testcheck = false;
+
     public function getId(): int
     {
         return $this->id;
@@ -43,5 +50,24 @@ class Greeting
      */
     public function isNeverOk() {
         return false;
+    }
+
+    /**
+     */
+    public function setTestcheck($testcheck): void
+    {
+        if (is_string($testcheck)) {
+            $testcheck = ($testcheck === "on" || $testcheck === "true");
+        }
+
+        $this->testcheck = $testcheck;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getTestcheck()
+    {
+        return $this->testcheck;
     }
 }

@@ -29,7 +29,7 @@ ApiClient.interceptors.response.use(
   function (error) {
     const response = error.response;
     if (response.status >= 500 && response.data !== undefined && response.data.detail !== undefined) {
-      EventBus.$emit('app-error', response);
+      EventBus.$emit('app-error', response, response.status);
     }
     return Promise.reject(error)
   }
