@@ -17,6 +17,7 @@
                       default-sort-order="asc"
                       end-point="/greetings"
                       :pagination="true"
+                      items-per-page=10
                       :updateNavigation="true"
                       @data="onData"
         >

@@ -10,7 +10,7 @@ use ApiPlatform\Core\Annotation as API;
 /**
  * This is a dummy entity. Remove it!
  *
- * @API\ApiResource
+ * @API\ApiResource(attributes={"pagination_items_per_page"=10})
  * @API\ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName"="order"})
  * @ORM\Entity
  */

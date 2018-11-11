@@ -8,14 +8,6 @@
 
 <script>
     export default {
-        props: ['item'],
-        data() {
-            return {
-                item: {}
-            }
-        },
-        created() {
-            console.log('list-item', this.item);
-        }
+        props: ['item']
     }
 </script>

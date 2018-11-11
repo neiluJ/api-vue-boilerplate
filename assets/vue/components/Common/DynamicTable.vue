@@ -18,7 +18,12 @@
             </thead>
             <slot></slot>
         </table>
-        <Pagination v-if="showPagination" />
+        <Pagination v-if="pagination"
+                    :items-per-page="itemsPerPage"
+                    :total-items="totalItems"
+                    :page="currentPage"
+                    @page-change="onPageChange"
+        />
     </div>
 </template>
 
@@ -34,9 +39,11 @@
             return {
                 ssort: this.sort,
                 ssortOrder: this.sortOrder,
-                watchHash: this.sort +':'+ this.sortOrder,
+                watchHash: Date.now(),
                 loading: false,
-                internal: false
+                internal: false,
+                totalItems: 0,
+                currentPage: 1
             }
         },
         props: {
@@ -91,15 +98,23 @@
                 type: String,
                 default: 'order'
             },
+            endPointPageParam: {
+                type: String,
+                default: 'page',
+            },
             updateNavigation: {
                 type: Boolean,
                 default: true,
+            },
+            itemsPerPage: {
+                default: 100
+            },
+            pageUrlParam: {
+                type: String,
+                default: 'page'
             }
         },
         computed: {
-            showPagination: function() {
-                return this.pagination === true;
-            },
             endPointUrl: function() {
                 let url = this.endPoint;
                 let queryString = new URLSearchParams();
@@ -114,6 +129,10 @@
                         let str = this.endPointOrderParam + '[' + (this.columns[this.ssort].sortKey ? this.columns[this.ssort].sortKey : this.ssort) +']';
                         queryString.append(str, this.ssortOrder);
                     }
+                }
+
+                if (true === this.pagination && this.currentPage > 1) {
+                    queryString.append(this.endPointPageParam, this.currentPage);
                 }
 
                 return (!queryString.toString().length ? url : url +'?'+ queryString.toString());
@@ -132,6 +151,8 @@
                 const query = this.getCurrentQueryFromUrl();
                 this.ssort = (query.hasOwnProperty(this.sortUrlParam) ? query[this.sortUrlParam] : this.sort);
                 this.ssortOrder = (query.hasOwnProperty(this.sortOrderUrlParam) ? query[this.sortOrderUrlParam] : this.sortOrder);
+                this.currentPage = (query.hasOwnProperty(this.pageUrlParam) ? query[this.pageUrlParam] : 1);
+
                 this.watchHash = Date.now();
             },
             loadData(queryFromUrl, force) {
@@ -152,29 +173,38 @@
                     }
                 })
                 .then((resp) => {
+                    this.$emit('response', resp);
                     let items = [];
-                    resp.data["hydra:member"].forEach((item) => {
-                        let currentItem = {};
-                        for(var column in this.columns) {
-                            const def = this.columns[column];
-                            if (def.bound === false) {
-                                continue;
+                    if (resp.data.hasOwnProperty('hydra:member')) {
+                        resp.data["hydra:member"].forEach((item) => {
+                            let currentItem = {};
+                            for (var column in this.columns) {
+                                const def = this.columns[column];
+                                if (def.bound === false) {
+                                    continue;
+                                }
+                                if (def.itemKey !== undefined) {
+                                    currentItem[column] = item[def.itemKey];
+                                } else if (def.itemValueFunc !== undefined && typeof(def.itemValueFunc) === "function") {
+                                    currentItem[column] = def.itemValueFunc.call(this, item)
+                                } else {
+                                    currentItem[column] = item[column];
+                                }
                             }
-                            if (def.itemKey !== undefined) {
-                                currentItem[column] = item[def.itemKey];
-                            } else if(def.itemValueFunc !== undefined && typeof(def.itemValueFunc) === "function") {
-                                currentItem[column] = def.itemValueFunc.call(this, item)
-                            } else {
-                                currentItem[column] = item[column];
-                            }
-                        }
-                        items.push(currentItem);
-                    });
-                    this.$emit('data', items);
+                            items.push(currentItem);
+                        });
+                        this.$emit('data', items);
+                    }
+
+                    if (resp.data.hasOwnProperty('hydra:totalItems')) {
+                        this.totalItems = resp.data["hydra:totalItems"];
+                    } else {
+                        this.totalItems = items.length;
+                    }
                 })
                 .finally(() => {
                     this.loading = false;
-                    this.$emit('end-loading');
+                    this.$emit('ready');
                 });
             },
             isSortableColumn(column) {
@@ -190,6 +220,10 @@
                     if (this.ssortOrder !== this.defaultSortOrder) {
                         query[this.sortOrderUrlParam] = this.ssortOrder;
                     }
+                }
+
+                if (true === this.pagination && this.currentPage > 1) {
+                    query[this.pageUrlParam] = this.currentPage;
                 }
 
                 return query;
@@ -216,6 +250,15 @@
                     }
                 }
 
+                if (true === this.pagination) {
+                    if (urlParams.has(this.pageUrlParam)) {
+                        const currentPage = parseInt(urlParams.get(this.pageUrlParam));
+                        if (currentPage && currentPage > 1) {
+                            query[this.pageUrlParam] = parseInt(urlParams.get(this.pageUrlParam));
+                        }
+                    }
+                }
+
                 return query;
             },
             changeSort(columnKey) {
@@ -231,6 +274,15 @@
                     this.ssortOrder = this.defaultSortOrder;
                 }
 
+                if (this.pagination === true) {
+                    this.currentPage = 1;
+                }
+
+                this.internal = true;
+                this.watchHash = Date.now();
+            },
+            onPageChange(page) {
+                this.currentPage = page;
                 this.internal = true;
                 this.watchHash = Date.now();
             }

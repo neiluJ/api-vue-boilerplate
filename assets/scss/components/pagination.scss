@@ -1,0 +1,18 @@
+ul.pagination {
+  list-style: none;
+  display: block;
+  text-align:center;
+}
+
+ul.pagination li {
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+ul.pagination li a {
+  text-decoration: none;
+}
+
+ul.pagination li.active {
+  font-weight: bold;
+}

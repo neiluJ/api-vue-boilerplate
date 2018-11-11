@@ -3,6 +3,10 @@
     "title": "My API App",
     "welcome_msg": "Hello from Vue!"
   },
+  "pagination": {
+    "first_page": "First page",
+    "last_page": "Last page"
+  },
   "welcome": {
     "greetings_list": {
       "title": "Greetings List"
