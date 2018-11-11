@@ -17,6 +17,7 @@
                       default-sort-order="asc"
                       end-point="/greetings"
                       :pagination="true"
+                      :updateNavigation="true"
         />
 
         <hr />
@@ -62,7 +63,6 @@
                 },
                 name: {
                     name: this.$t('greetings.columns.name'),
-                    itemKey: 'name',
                     cssClass: 'col-name'
                 }
             };

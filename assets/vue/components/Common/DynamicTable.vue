@@ -80,8 +80,7 @@
                 default: 'asc',
                 validator: function (value) {
                     return ['asc', 'desc'].indexOf(value) !== -1
-                },
-                required: false
+                }
             },
             sortUrlParam: {
                 type: String,
@@ -96,8 +95,7 @@
                 default: 'asc',
                 validator: function (value) {
                     return ['asc', 'desc'].indexOf(value) !== -1
-                },
-                required: false
+                }
             },
             endPoint: {
                 type: String,
@@ -106,6 +104,10 @@
             endPointOrderParam: {
                 type: String,
                 default: 'order'
+            },
+            updateNavigation: {
+                type: Boolean,
+                default: true,
             }
         },
         computed: {
@@ -140,6 +142,10 @@
         },
         methods: {
             bindQuery() {
+                if(!this.updateNavigation) {
+                    return;
+                }
+
                 const query = this.getCurrentQueryFromUrl();
                 this.ssort = (query.hasOwnProperty(this.sortUrlParam) ? query[this.sortUrlParam] : this.sort);
                 this.ssortOrder = (query.hasOwnProperty(this.sortOrderUrlParam) ? query[this.sortOrderUrlParam] : this.sortOrder);
@@ -152,7 +158,7 @@
 
                 this.loading = true;
                 let routeQuery = this.getCurrentQuery();
-                if (!queryFromUrl) {
+                if (!queryFromUrl && true === this.updateNavigation) {
                     this.$router.push({name: this.$router.currentRoute.name, query: routeQuery});
                 }
 
@@ -171,6 +177,8 @@
                                 currentItem[column] = item[def.itemKey];
                             } else if(def.itemValueFunc !== undefined && typeof(def.itemValueFunc) === "function") {
                                 currentItem[column] = def.itemValueFunc.call(this, item)
+                            } else {
+                                currentItem[column] = item[column];
                             }
                         }
                         items.push(currentItem);
@@ -248,6 +256,10 @@
                 this.loadData(!this.internal);
             },
             '$route.query': function() {
+                if(!this.updateNavigation) {
+                    return;
+                }
+
                 if (this.internal) {
                     this.internal = false;
                     return;
