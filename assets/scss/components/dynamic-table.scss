@@ -1,0 +1,19 @@
+table {
+  display: table;
+  width: 100%
+}
+
+table thead {
+  background-color: #ccc;
+}
+thead th {
+  font-weight: normal;
+  text-align: left;
+}
+
+thead th a {
+  text-decoration: none;
+}
+thead th.sorted {
+  font-weight: bold;
+}

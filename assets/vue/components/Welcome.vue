@@ -18,10 +18,17 @@
                       end-point="/greetings"
                       :pagination="true"
                       :updateNavigation="true"
-        />
+                      @data="onData"
+        >
+            <tbody>
+                <greeting-list-item v-for="item in items"
+                                    :key="item.id"
+                                    :item="item"
+                ></greeting-list-item>
+            </tbody>
+        </DynamicTable>
 
         <hr />
-
 
         <div style="text-align: center;">
             <h3>Store sample</h3>
@@ -36,12 +43,19 @@
 <script>
   import { INCREMENT_COUNT } from '../store/modules/sample/types'
   import DynamicTable from "./Common/DynamicTable";
+  import GreetingListItem from "./Greetings/GreetingListItem"
 
-  // Sample for properties order
   export default {
-    name: 'Welcome',
-      components: {DynamicTable},
-      computed: {
+    components: {
+        DynamicTable,
+        GreetingListItem
+    },
+      data() {
+          return {
+              items: []
+          }
+      },
+    computed: {
       count() {
         return this.$store.state.sample.count
       },
@@ -50,20 +64,28 @@
       }
     },
     methods: {
-      askQuestion() {
-        this.$store.dispatch(INCREMENT_COUNT)
-      },
+        askQuestion() {
+            this.$store.dispatch(INCREMENT_COUNT)
+        },
+        onData(items) {
+            this.items = items;
+        },
         getColumnsDefinition() {
             return {
                 id: {
                     name: this.$t('greetings.columns.id'),
                     itemKey: 'id',
-                    sortable: false,
                     cssClass: 'col-id'
                 },
                 name: {
                     name: this.$t('greetings.columns.name'),
                     cssClass: 'col-name'
+                },
+                actions: {
+                    name: this.$t('greetings.columns.actions'),
+                    cssClass: 'col-actions',
+                    bound: false,
+                    sortable: false
                 }
             };
         }

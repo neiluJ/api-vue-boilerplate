@@ -11,7 +11,8 @@
   "greetings": {
     "columns": {
       "id": "Id",
-      "name": "Name"
+      "name": "Name",
+      "actions": "Actions"
     }
   },
   "forms": {

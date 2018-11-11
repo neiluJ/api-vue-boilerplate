@@ -2,7 +2,7 @@
     <div>
         <table>
             <thead slot="thead">
-                <th v-for="(column, key) in columns" :class="column.cssClass">
+                <th v-for="(column, key) in columns" :class="column.cssClass + (ssort === key ? ' sorted' : '')">
                     <a href="#" v-if="isSortableColumn(column)" @click.prevent="changeSort(key)">
                         {{ column.name }}
 
@@ -16,20 +16,7 @@
                     <span v-else>{{ column.name }}</span>
                 </th>
             </thead>
-            <tbody slot="tbody" v-if="!loading">
-                <tr v-for="(item, key) in items" :key="item.id">
-                    <td v-for="(column, columnKey) in columns">
-                        {{ item[columnKey] }}
-                    </td>
-                </tr>
-            </tbody>
-            <tbody slot="tbody" v-else>
-                <tr class="table-msg">
-                    <td :colspan="columnsCount">
-                        loading
-                    </td>
-                </tr>
-            </tbody>
+            <slot></slot>
         </table>
         <Pagination v-if="showPagination" />
     </div>
@@ -45,7 +32,6 @@
         },
         data () {
             return {
-                items: [],
                 ssort: this.sort,
                 ssortOrder: this.sortOrder,
                 watchHash: this.sort +':'+ this.sortOrder,
@@ -114,9 +100,6 @@
             showPagination: function() {
                 return this.pagination === true;
             },
-            columnsCount: function() {
-                return Object.keys(this.columns).length;
-            },
             endPointUrl: function() {
                 let url = this.endPoint;
                 let queryString = new URLSearchParams();
@@ -157,6 +140,7 @@
                 }
 
                 this.loading = true;
+                this.$emit('loading');
                 let routeQuery = this.getCurrentQuery();
                 if (!queryFromUrl && true === this.updateNavigation) {
                     this.$router.push({name: this.$router.currentRoute.name, query: routeQuery});
@@ -173,6 +157,9 @@
                         let currentItem = {};
                         for(var column in this.columns) {
                             const def = this.columns[column];
+                            if (def.bound === false) {
+                                continue;
+                            }
                             if (def.itemKey !== undefined) {
                                 currentItem[column] = item[def.itemKey];
                             } else if(def.itemValueFunc !== undefined && typeof(def.itemValueFunc) === "function") {
@@ -183,14 +170,15 @@
                         }
                         items.push(currentItem);
                     });
-                    this.items = items;
+                    this.$emit('data', items);
                 })
                 .finally(() => {
                     this.loading = false;
+                    this.$emit('end-loading');
                 });
             },
             isSortableColumn(column) {
-                return this.sortable && column.sortable !== false
+                return this.sortable && column.sortable !== false && column.bound !== false
             },
             getCurrentQuery() {
                 let query = {};
@@ -256,11 +244,7 @@
                 this.loadData(!this.internal);
             },
             '$route.query': function() {
-                if(!this.updateNavigation) {
-                    return;
-                }
-
-                if (this.internal) {
+                if (this.internal || false === this.updateNavigation) {
                     this.internal = false;
                     return;
                 }
