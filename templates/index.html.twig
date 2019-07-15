@@ -7,5 +7,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}

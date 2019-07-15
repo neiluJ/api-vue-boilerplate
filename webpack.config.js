@@ -1,6 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin.js');
 const Defineplugin = require('webpack/lib/DefinePlugin');
 
 Encore
@@ -22,8 +21,6 @@ Encore
 
     // add vue loader
     .enableVueLoader()
-
-    .addPlugin(new VueLoaderPlugin())
 
     .addPlugin(new SpriteLoaderPlugin())
 
@@ -54,6 +51,7 @@ Encore
      * list of features, see:
      * https://symfony.com/doc/current/frontend.html#adding-more-features
      */
+    .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
