@@ -2,11 +2,11 @@
 
 Ready-to-use Dockerized API app structure powered by:
 
-* Symfony 4.1
+* Symfony 4.4
 * API Platform 2 (+ swagger for API documentation)
 * VueJS + Vuex client structure 
 * Frontend toolkit (Webpack ready: SCSS, Icons/SVG sprites)
-* Full docker stack with PHP 7.2 fpm + nginx, node, varnish
+* Full docker dev stack with PHP 7.2 fpm + xdebug + nginx, node, varnish
 * JWT-Ready with login implementation
 
 Clone, Build, Enjoy.
@@ -20,7 +20,7 @@ $ . aliases.sh
 
 ## Install
 
-Create and edit an ```.env``` file:
+Create and EDIT an ```.env``` file:
 ```bash
 $ cp .env.dist .env
 ```
@@ -32,16 +32,35 @@ $ . aliases.sh
 [api] $ npm install && npm run dev
 ```
 
-Visit http://localhost and start coding! (the varnish-cached version is on http://localhost:81)
+### Configure JWT
+
+(find/configure passphrase in .env file)
+```bash
+[api] $ cli
+site@php $ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+site@php $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+```
+
+Login (users are stored in `config/packages/security.yaml`):
+```bash
+curl -X POST -H "Content-Type: application/json" http://localhost/login_check -d '{"username":"admin","password":"apiplatform"}'
+```
+
+Encode a user password:
+```bash
+php bin/console security:encode-password
+```
+
+> Read more about LexitJWTBundle: https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md 
+
+> Read more about Symfony Security: https://symfony.com/doc/current/security.html
 
 ### Upcoming/TODO features
 
 * [ ] JWT-ready (with login form demo)
 * [ ] Better http component (ie: understand api-platform responses)
-* [ ] Form validation component (sync with validation from api-platform)
-* [ ] self-signed HTTPS ?
+* [x] Form validation component (sync with validation from api-platform)
 * [x] CLI aliases 
-* [ ] Xdebug install option ? 
 * [ ] Demo component with Greeting model
 
 ## How to use/customize
@@ -74,7 +93,7 @@ You have to source the ```aliases.sh``` file before using these aliases (on your
 
 #### API Endpoint
 
-* Swagger/API doc is available at the API root: http://localhost/api
+* Swagger/OpenAPI documentation is available at the API root: http://localhost/api
 * You can change the API root url by changing the ```prefix``` in ```config/routes/api_platform.yaml```
 
 #### translations

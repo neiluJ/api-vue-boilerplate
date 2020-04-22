@@ -2,3 +2,6 @@ index:
     path: /
     controller: App\Controller\IndexController
 
+
+login_check:
+    path: /login_check

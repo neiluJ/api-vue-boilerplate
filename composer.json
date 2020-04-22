@@ -6,9 +6,11 @@
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
+        "lexik/jwt-authentication-bundle": "^2.6",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
+        "symfony/monolog-bundle": "^3.5",
         "symfony/translation": "^4.0",
         "symfony/webpack-encore-bundle": "^1.0",
         "symfony/yaml": "^4.0"
