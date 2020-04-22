@@ -110,6 +110,9 @@
             "ref": "7b6cbc842f8cd3d550815247d12294f6f304a8c4"
         }
     },
+    "ocramius/package-versions": {
+        "version": "1.4.2"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.2.0"
     },
