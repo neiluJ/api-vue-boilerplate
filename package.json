@@ -34,7 +34,7 @@
     "build": "encore production"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "browser-locale": "^1.0.3",
     "moment": "^2.24.0",
     "vue": "^2.6.11",
