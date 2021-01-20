@@ -43,7 +43,7 @@ site@php $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -p
 
 Login (users are stored in `config/packages/security.yaml`):
 ```bash
-curl -X POST -H "Content-Type: application/json" http://localhost/login_check -d '{"username":"admin","password":"apiplatform"}'
+curl -X POST -H "Content-Type: application/json" http://localhost/api/login_check -d '{"username":"admin","password":"apiplatform"}'
 ```
 
 Encode a user password:

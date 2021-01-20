@@ -78,9 +78,6 @@
       },
       "submit": {
         "label": "Login"
-      },
-      "lost_password": {
-        "link": "Lost password ?"
       }
     }
   }

@@ -15,5 +15,17 @@ export default {
             url: url,
             data: jsonObject
         }, config || {});
+    },
+    sendLogin(username, password, config) {
+        let jsonObject = {
+            username: username,
+            password: password
+        };
+
+        return ApiClient({
+            method: 'post',
+            url: '/login_check',
+            data: jsonObject
+        }, config || {});
     }
 }
