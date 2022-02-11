@@ -5,7 +5,7 @@
   "author": "John Web Token <jwt@localhost>",
   "devDependencies": {
     "@symfony/webpack-encore": "^0.27.0",
-    "ajv": "^6.12.2",
+    "ajv": "^6.12.3",
     "autoprefixer": "^9.7.6",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
