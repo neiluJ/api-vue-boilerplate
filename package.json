@@ -4,7 +4,7 @@
   "description": "My API Application does the job",
   "author": "John Web Token <jwt@localhost>",
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.27.0",
+    "@symfony/webpack-encore": "^4.1.1",
     "ajv": "^6.12.2",
     "autoprefixer": "^9.7.6",
     "copy-webpack-plugin": "^4.6.0",
@@ -15,7 +15,7 @@
     "node-sass": "^4.13.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "sass-loader": "^7.3.1",
-    "svg-sprite-loader": "^4.2.5",
+    "svg-sprite-loader": "^6.0.11",
     "svgo": "^1.3.2",
     "svgo-loader": "^2.2.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
